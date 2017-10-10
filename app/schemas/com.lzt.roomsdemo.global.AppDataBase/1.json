@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "bf2ceea6c612240c909895e1bc7e26ef",
+    "entities": [
+      {
+        "tableName": "animal",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`aid` INTEGER, `sname` TEXT, `place` TEXT, `lifeTime` INTEGER, `viviparity` INTEGER, `cid` INTEGER, `cname` TEXT, PRIMARY KEY(`aid`))",
+        "fields": [
+          {
+            "fieldPath": "aid",
+            "columnName": "aid",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "scientificName",
+            "columnName": "sname",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "place",
+            "columnName": "place",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lifeTime",
+            "columnName": "lifeTime",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "viviparity",
+            "columnName": "viviparity",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "country.cid",
+            "columnName": "cid",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "country.cname",
+            "columnName": "cname",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "aid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "food",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fId` INTEGER, `name` TEXT, `animal` TEXT, `aid` INTEGER, PRIMARY KEY(`fId`), FOREIGN KEY(`aid`) REFERENCES `animal`(`aid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "fId",
+            "columnName": "fId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "animal",
+            "columnName": "animal",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "aid",
+            "columnName": "aid",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "fId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "animal",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "aid"
+            ],
+            "referencedColumns": [
+              "aid"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"bf2ceea6c612240c909895e1bc7e26ef\")"
+    ]
+  }
+}
